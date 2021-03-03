@@ -32,6 +32,9 @@ class App extends Component {
           return c.id !== contact.id
         })
     }))
+
+    // use the Contacts API's remove() method to update the backend.
+    ContactsAPI.remove(contact)
   }
 
   render() {
