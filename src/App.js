@@ -3,14 +3,20 @@ import ListContacts from './ListContacts';
 // * means everything
 import * as ContactsAPI from './utils/ContactsAPI';
 import CreateContact from './CreateContact';
-
+import { Route } from 'react-router-dom';
 
 class App extends Component {
 
+  // //before introduing react router:
+  // state = {
+  //   contacts: [],
+  //   screen: 'list'
+  // };
+
+  // after introducing react router:
   state = {
-    contacts: [],
-    screen: 'list'
-  };
+    contacts: []
+  }
   
   // lifecyle method to make API requests
   componentDidMount() {
@@ -46,7 +52,8 @@ class App extends Component {
         {/* short-circuit evaluation. If the first expression evaluates to true, then the second expression is run. 
         However, if the first expression evaluates to false, then the second expression is skipped.  */}
         {/* if this.state.screen === 'list' , show <LisContacts /> */}
-        {this.state.screen === 'list' && (
+        {/* before introducing Route: */}
+        {/* {this.state.screen === 'list' && (
           <ListContacts 
           contacts={this.state.contacts}
           onDeleteContact={this.removeContact}
@@ -56,11 +63,25 @@ class App extends Component {
             }))
           }}
         />
-        )}
+        )} */}
         {/* if this.state.screen === 'create' , show <CreateContact /> */}
-        {this.state.screen === 'create' && (
+        {/* {this.state.screen === 'create' && (
           <CreateContact />
-        )}
+        )} */}
+        {/* after introducing route */}
+        {/* since we need to pass props to <ListContacts />
+        we use render={} */}
+        <Route exact path='/' render={() => (
+          <ListContacts 
+            contacts={this.state.contacts}
+            onDeleteContact={this.removeContact}
+          />
+        )} />
+        {/* <Route path='/create' component={CreateContact}/> */}
+        <Route path='/create' render={() => (
+            <CreateContact />
+          )}
+        />
       </div>
     );
   }
