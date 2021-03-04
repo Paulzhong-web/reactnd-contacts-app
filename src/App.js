@@ -9,7 +9,7 @@ class App extends Component {
 
   state = {
     contacts: [],
-    screen: 'create'
+    screen: 'list'
   };
   
   // lifecyle method to make API requests
@@ -43,12 +43,18 @@ class App extends Component {
   render() {
     return (
       <div>
-        {/* the "contacts" inside {} represent the contacts list array above */}
+        {/* short-circuit evaluation. If the first expression evaluates to true, then the second expression is run. 
+        However, if the first expression evaluates to false, then the second expression is skipped.  */}
         {/* if this.state.screen === 'list' , show <LisContacts /> */}
         {this.state.screen === 'list' && (
           <ListContacts 
           contacts={this.state.contacts}
           onDeleteContact={this.removeContact}
+          onNavigate={() => {
+            this.setState(() => ({
+              screen: 'create'
+            }))
+          }}
         />
         )}
         {/* if this.state.screen === 'create' , show <CreateContact /> */}
