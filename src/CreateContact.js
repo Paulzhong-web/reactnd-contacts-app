@@ -10,6 +10,9 @@ class CreateContact extends Component {
         event.preventDefault();
         const values = serializeForm(event.target, { hash: true })
         // console.log('value', values)
+        if(this.props.onCreateContact) {
+            this.props.onCreateContact(values)
+        }
     }
 
     render() {
