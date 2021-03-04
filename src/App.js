@@ -2,16 +2,19 @@ import React, { Component } from 'react';
 import ListContacts from './ListContacts';
 // * means everything
 import * as ContactsAPI from './utils/ContactsAPI';
+import CreateContact from './CreateContact';
+
 
 class App extends Component {
 
   state = {
-    contacts: []
-  }
+    contacts: [],
+    screen: 'create'
+  };
   
   // lifecyle method to make API requests
   componentDidMount() {
-    ContactsAPI.getAll()
+    ContactsAPI.getAll() 
       .then((contacts) => {
         this.setState(() => ({
           contacts
@@ -41,10 +44,17 @@ class App extends Component {
     return (
       <div>
         {/* the "contacts" inside {} represent the contacts list array above */}
-        <ListContacts 
+        {/* if this.state.screen === 'list' , show <LisContacts /> */}
+        {this.state.screen === 'list' && (
+          <ListContacts 
           contacts={this.state.contacts}
           onDeleteContact={this.removeContact}
         />
+        )}
+        {/* if this.state.screen === 'create' , show <CreateContact /> */}
+        {this.state.screen === 'create' && (
+          <CreateContact />
+        )}
       </div>
     );
   }
